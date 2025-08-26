@@ -1,4 +1,5 @@
 import os
+import gradio as gr
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -35,7 +36,7 @@ prompt = ChatPromptTemplate.from_messages([
 # The AI brain (LLM)
 llm = ChatGoogleGenerativeAI(
     model="gemini-1.5-flash",
-    google_api_key=os.getenv("GEMINI_API_KEYcd "),
+    google_api_key=os.getenv("GEMINI_API_KEY"),
     temperature=0.7
 )
 
@@ -45,13 +46,20 @@ output_parser = StrOutputParser()
 # Build the conversational chain
 chain = prompt | llm | output_parser
 
-# Testing the chain
-if __name__ == "__main__": # FIX 2: Corrected the standard Python entry point
-    print("---Testing the dream team ---")
-    test_question = "what is the best way to learn C?"
-    
-    # FIX 3: Actually call the chain and store the result in 'response'
-    response = chain.invoke({"input": test_question})
-    
-    print(f"Question: {test_question}")
-    print(f"Response: {response}")
+# Create gradio function 
+def get_dream_team_response(user_input):
+    """Invokes the langchain chain with user input."""
+    response = chain.invoke({"input": user_input})
+    return response
+
+# Build the gradio  web interface
+iface = gr.Interface (
+    fn= get_dream_team_response,
+    inputs = gr.Textbox(lines=3, placeholder="Ask the dream team  anything tecchnologie or any question... "),
+    outputs="text",
+    title="🤖 The Dream Team Chatbot 🤖",
+    description="Chat with a panel of legendary computer scientists and embedded systems experts." 
+)
+
+# 6. Launch the web app
+iface.launch(server_name="0.0.0.0", server_port=8080)

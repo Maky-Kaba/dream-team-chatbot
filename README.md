@@ -55,3 +55,18 @@ To run this project, you will need an API key for Google Gemini.
 *   **Web Interface:** Gradio
 *   **Core Language:** Python 3
 *   **Key Libraries:** `langchain-google-genai`, `gradio`, `python-dotenv`
+---
+title: Dream Team Chatbot
+emoji: 🤖
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: "4.31.0" # You can check your exact version in requirements.txt
+app_file: app.py
+pinned: false
+---
+
+# 🤖 The Dream Team AI Chatbot 🤖
+
+This project is a unique, persona-driven AI chatbot...
+(the rest of your README continues here)
